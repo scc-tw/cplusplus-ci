@@ -2,7 +2,7 @@
 # Copyright © 2025      GSI Helmholtzzentrum fuer Schwerionenforschung GmbH
 #                       Matthias Kretz <m.kretz@gsi.de>
 
-name: Build and Push C++ CI Docker Image
+name: Build Latest Image
 
 on:
   workflow_dispatch:  # Allows manual trigger via GitHub UI
@@ -33,6 +33,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          file: Dockerfile.latest
           push: true
-          tags: ghcr.io/${{ github.actor }}/cplusplus-ci:latest
+          tags: ghcr.io/${{ github.repository }}/latest
 
