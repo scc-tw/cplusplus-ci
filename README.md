@@ -21,9 +21,10 @@ projects.
     - `clang++-21`
 
 2. [ghcr.io/mattkretz/cplusplus-ci/latest](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Flatest)
-    This container builds upon the base image. In addition it has GCC 15 and 
-    GCC trunk installed in `/opt/gcc-15` and `/opt/gcc-master`, respectively. 
-    GCC is compiled from Git (`releases/gcc-15` and `master` branches).
+    This container builds upon the base image. In addition, GCC 15 and GCC 
+    master are installed in `/opt/gcc-15` and `/opt/gcc-master`, respectively. 
+    GCC is compiled from Git (`releases/gcc-15` and `master` branches). Both 
+    installations support `-m32` and `-mx32` builds.
 
     In this image `gcc`/`g++` defaults to GCC 15.
 
@@ -31,3 +32,34 @@ projects.
 
     - `g++-15`
     - `g++-master` (or `g++-trunk`)
+
+## Example GitHub CI workflow
+
+```
+name: Clang
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  clang:
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [20, 21]
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/mattkretz/cplusplus-ci/base
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run test suite
+        env:
+          CXX: clang++-${{ matrix.version }}
+        run: make check
+```
