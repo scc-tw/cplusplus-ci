@@ -74,3 +74,9 @@ jobs:
           CXX: clang++-${{ matrix.version }}
         run: make check
 ```
+
+## Updates
+
+The images are automatically updated once per month (base) / once per week 
+(latest). There may also be manual updates whenever the feature set needs to 
+change.
