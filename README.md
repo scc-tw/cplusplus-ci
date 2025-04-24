@@ -1,41 +1,52 @@
-# Docker images for CI workflows in C++ projects
+# Docker Images for C++ CI Workflows
 
-This repository provides two images for use in GitHub CI workflows in C++ 
-projects.
+This repository provides two Docker images optimized for use in GitHub Actions 
+CI workflows targeting C++ projects.
 
-1. [ghcr.io/mattkretz/cplusplus-ci/base](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Fbase)
-    This container is based on Ubuntu 24.04 with several useful packages 
-    installed via APT:
+## Available Images
 
-    - `make` and `ninja`
-    - `cmake`
-    - GCC 13 and 14 with `-m32` and `-mx32` support
-    - `gcc`/`g++` defaults to GCC 14
-    - Clang 20 and 21 (trunk)
+### 1. [`ghcr.io/mattkretz/cplusplus-ci/base`](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Fbase)
 
-    You can thus set your `CXX` environment variable to either one of:
+A base image built on **Ubuntu 24.04**, with several useful packages installed 
+via APT:
 
-    - `g++-13`
-    - `g++-14`
-    - `clang++-20`
-    - `clang++-21`
+- `make` and `ninja`
+- `cmake`
+- GCC 13 and 14 with `-m32` and `-mx32` support
+- Default `gcc`/`g++` → **GCC 14**
+- Clang 20 and 21 (trunk)
 
-2. [ghcr.io/mattkretz/cplusplus-ci/latest](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Flatest)
-    This container builds upon the base image. In addition, GCC 15 and GCC 
-    master are installed in `/opt/gcc-15` and `/opt/gcc-master`, respectively. 
-    GCC is compiled from Git (`releases/gcc-15` and `master` branches). Both 
-    installations support `-m32` and `-mx32` builds.
+You can set the `CXX` environment variable to:
 
-    In this image `gcc`/`g++` defaults to GCC 15.
+- `g++-13`
+- `g++-14`
+- `clang++-20`
+- `clang++-21`
 
-    In addition to the above, you can set your `CXX` environment variable to:
+---
 
-    - `g++-15`
-    - `g++-master` (or `g++-trunk`)
+### 2. [`ghcr.io/mattkretz/cplusplus-ci/latest`](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Flatest)
 
-## Example GitHub CI workflow
+This image builds on the `base` image and adds:
 
-```
+- **GCC 15** and **GCC master**, compiled from the upstream `releases/gcc-15` 
+  and `master` branches
+- Installed in:
+  - `/opt/gcc-15`
+  - `/opt/gcc-master`
+- Supports `-m32` and `-mx32` builds
+- Default `gcc`/`g++` → **GCC 15**
+
+You can additionally set the `CXX` environment variable to:
+
+- `g++-15`
+- `g++-master` *(alias: `g++-trunk`)*
+
+---
+
+## Example GitHub CI Workflow
+
+```yaml
 name: Clang
 
 on:
