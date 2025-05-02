@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright © 2025      GSI Helmholtzzentrum fuer Schwerionenforschung GmbH
+#                       Matthias Kretz <m.kretz@gsi.de>
+
+FROM ghcr.io/mattkretz/cplusplus-ci/common
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get install -y --no-install-recommends g++-10-multilib && \
+    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-10 100 --slave /usr/bin/g++ g++ /usr/bin/g++-10 && \
+    apt-get clean
+
+CMD ["/bin/bash"]
+

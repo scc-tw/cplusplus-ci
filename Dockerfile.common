@@ -1,0 +1,42 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Copyright © 2025      GSI Helmholtzzentrum fuer Schwerionenforschung GmbH
+#                       Matthias Kretz <m.kretz@gsi.de>
+
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN dpkg --add-architecture i386 && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+    apt-utils \
+    bison \
+    build-essential \
+    ca-certificates \
+    chrpath \
+    cmake \
+    coreutils \
+    curl \
+    file \
+    flex \
+    gawk \
+    git \
+    gnupg \
+    libc6-dev-i386 \
+    libtool \
+    linux-libc-dev:i386 \
+    locales-all \
+    lsb-release \
+    m4 \
+    make \
+    ninja-build \
+    pkgconf \
+    python3 \
+    python3-pip \
+    pipx \
+    software-properties-common \
+    time \
+    wget \
+    zsh && \
+    apt-get clean && \
+    pipx install conan

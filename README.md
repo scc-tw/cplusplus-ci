@@ -1,46 +1,56 @@
 # Docker Images for C++ CI Workflows
 
-This repository provides two Docker images optimized for use in GitHub Actions 
-CI workflows targeting C++ projects.
+This repository provides Docker images optimized for use in GitHub Actions CI 
+workflows targeting C++ projects.
 
-## Available Images
+All images are built on top of a common Ubuntu 24.04 base with several useful 
+packages installed via APT:
 
-### 1. [`ghcr.io/mattkretz/cplusplus-ci/base`](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Fbase)
-
-A base image built on **Ubuntu 24.04**, with several useful packages installed 
-via APT:
-
-- `make` and `ninja`
+- `binutils`
+- `bison`
 - `cmake`
-- GCC 13 and 14 with `-m32` and `-mx32` support
-- Default `gcc`/`g++` → **GCC 14**
-- Clang 20 and 21 (trunk)
+- `conan` (installed via `pipx`)
+- `flex`
+- `git`
+- `make`
+- `ninja`
+- `pkgconf`
 
-You can set the `CXX` environment variable to:
+## GCC images
 
-- `g++-13`
-- `g++-14`
-- `clang++-20`
-- `clang++-21`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc9`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc10`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc11`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc12`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc13`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc14`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc15`
+- `ghcr.io/mattkretz/cplusplus-ci/gcc16`
 
----
+The GCC images provide `gcc` and `g++` aliases to the respective version. GCC 
+is always installed with multilib support, i.e. `-m32`, `-mx32`, and `-m64` are 
+supported.
 
-### 2. [`ghcr.io/mattkretz/cplusplus-ci/latest`](https://github.com/users/mattkretz/packages/container/package/cplusplus-ci%2Flatest)
+## Clang images
 
-This image builds on the `base` image and adds:
+- `ghcr.io/mattkretz/cplusplus-ci/clang14`
+- `ghcr.io/mattkretz/cplusplus-ci/clang15`
+- `ghcr.io/mattkretz/cplusplus-ci/clang16`
+- `ghcr.io/mattkretz/cplusplus-ci/clang17`
+- `ghcr.io/mattkretz/cplusplus-ci/clang18`
+- `ghcr.io/mattkretz/cplusplus-ci/clang19`
+- `ghcr.io/mattkretz/cplusplus-ci/clang20`
+- `ghcr.io/mattkretz/cplusplus-ci/clang21`
 
-- **GCC 15** and **GCC master**, compiled from the upstream `releases/gcc-15` 
-  and `master` branches
-- Installed in:
-  - `/opt/gcc-15`
-  - `/opt/gcc-master`
-- Supports `-m32` and `-mx32` builds
-- Default `gcc`/`g++` → **GCC 15**
+The Clang images provide `clang`, `clang++`, `clang-tidy`, and `clang-format` 
+aliases to the respective version.
 
-You can additionally set the `CXX` environment variable to:
+## Deprecated images
 
-- `g++-15`
-- `g++-master` *(alias: `g++-trunk`)*
+The
+`ghcr.io/mattkretz/cplusplus-ci/base` and 
+`ghcr.io/mattkretz/cplusplus-ci/latest images are deprecated and will not be 
+updated anymore.
 
 ---
 
@@ -64,19 +74,19 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/mattkretz/cplusplus-ci/base
+      image: ghcr.io/mattkretz/cplusplus-ci/clang${{ matrix.version }}
 
     steps:
       - uses: actions/checkout@v4
 
       - name: Run test suite
         env:
-          CXX: clang++-${{ matrix.version }}
+          CXX: clang++
         run: make check
 ```
 
 ## Updates
 
-The images are automatically updated once per month (base) / once per week 
-(latest). There may also be manual updates whenever the feature set needs to 
-change.
+The `gcc15` and `gcc16` images are updated once per week. All other images are 
+updated once per month. There may also be manual updates whenever the feature 
+set needs to change.
