@@ -49,7 +49,7 @@ aliases to the respective version.
 
 The
 `ghcr.io/mattkretz/cplusplus-ci/base` and 
-`ghcr.io/mattkretz/cplusplus-ci/latest images are deprecated and will not be 
+`ghcr.io/mattkretz/cplusplus-ci/latest` images are deprecated and will not be 
 updated anymore.
 
 ---
