@@ -44,7 +44,7 @@ jobs:
 
     strategy:
       matrix:
-        image: [clang14, clang15, clang16, clang17, clang18, gcc9, gcc10, gcc11, gcc12, gcc13, gcc14]
+        image: [clang14, clang15, clang16, clang17, clang18, gcc9, gcc10, gcc11, gcc12, gcc13, gcc14, doxygen]
 
     runs-on: ubuntu-latest
 
