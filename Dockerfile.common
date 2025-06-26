@@ -40,3 +40,7 @@ RUN dpkg --add-architecture i386 && \
     zsh && \
     apt-get clean && \
     pipx install conan
+
+RUN mkdir -p /opt/cmake-latest && cd /opt/cmake-latest && \
+    curl -L https://github.com/Kitware/CMake/releases/download/v4.0.3/cmake-4.0.3-linux-x86_64.tar.gz | tar -xz --strip-components=1 && \
+    rm -rf doc man

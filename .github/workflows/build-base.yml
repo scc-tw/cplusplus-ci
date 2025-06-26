@@ -39,6 +39,21 @@ jobs:
           push: true
           tags: ghcr.io/${{ github.repository }}/common
 
+  cmake-version-check:
+    needs: common
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: ghcr.io/mattkretz/cplusplus-ci/common
+
+    steps:
+      - name: Set PATH
+        run: echo /opt/cmake-latest/bin >> $GITHUB_PATH
+
+      - name: Run cmake
+        run: cmake --version | grep 4.0.3
+
   after-common:
     needs: common
 
