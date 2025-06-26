@@ -85,6 +85,17 @@ jobs:
         run: make check
 ```
 
+## Latest CMake
+
+If you want to use latest CMake add the following step to your workflow before 
+a step that needs `cmake`:
+
+```yaml
+      - name: Set PATH for cmake-latest
+        run: echo /opt/cmake-latest/bin >> $GITHUB_PATH
+```
+
+
 ## Updates
 
 The `gcc15` and `gcc16` images are updated once per week. All other images are 
