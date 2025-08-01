@@ -41,6 +41,7 @@ supported.
 - `ghcr.io/mattkretz/cplusplus-ci/clang19`
 - `ghcr.io/mattkretz/cplusplus-ci/clang20`
 - `ghcr.io/mattkretz/cplusplus-ci/clang21`
+- `ghcr.io/mattkretz/cplusplus-ci/clang22`
 
 The Clang images provide `clang`, `clang++`, `clang-tidy`, and `clang-format` 
 aliases to the respective version.

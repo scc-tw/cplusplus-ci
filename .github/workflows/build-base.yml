@@ -89,8 +89,9 @@ jobs:
     needs: after-common
 
     strategy:
+      fail-fast: false
       matrix:
-        image: [clang19, clang20, clang21]
+        image: [clang19, clang20, clang21, clang22]
 
     runs-on: ubuntu-latest
 
