@@ -15,6 +15,9 @@ RUN apt-get install -y --no-install-recommends \
     cd /root/gcc-16 && \
     curl -L https://github.com/gcc-mirror/gcc/archive/master.tar.gz \
     | tar -xz --strip-components=1 && \
+    mkdir binutils && cd binutils && \
+    curl -L https://sourceware.org/pub/binutils/releases/binutils-2.45.tar.gz \
+    | tar -xz --strip-components=1 && \
     cd /root/gcc-16/obj && ../configure --enable-languages=c,c++,lto --prefix=/opt/gcc-16 --disable-checking --disable-bootstrap && \
     make -j3 && \
     make -j3 install-strip && \
