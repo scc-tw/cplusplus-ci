@@ -15,8 +15,8 @@ RUN apt-get install -y --no-install-recommends \
     cd /root/gcc-15 && \
     curl -L https://github.com/gcc-mirror/gcc/archive/releases/gcc-15.tar.gz \
     | tar -xz --strip-components=1 && \
-    cd /root/gcc-15/obj && ../configure --enable-languages=c,c++,lto --prefix=/opt/gcc-15 --disable-checking --disable-bootstrap && \
-    make -j3 && \
+    cd /root/gcc-15/obj && ../configure --enable-languages=c,c++,lto --prefix=/opt/gcc-15 --enable-checking=release --disable-bootstrap && \
+    make BOOT_CFLAGS=-march=x86-64-v3 -j3 && \
     make -j3 install-strip && \
     update-alternatives --install /usr/bin/gcc-15 gcc-15 /opt/gcc-15/bin/gcc 150 --slave /usr/bin/g++-15 g++-15 /opt/gcc-15/bin/g++ && \
     update-alternatives --install /usr/bin/gcc gcc /opt/gcc-15/bin/gcc 150 --slave /usr/bin/g++ g++ /opt/gcc-15/bin/g++ && \
