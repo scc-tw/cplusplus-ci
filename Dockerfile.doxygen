@@ -7,6 +7,6 @@ FROM ghcr.io/mattkretz/cplusplus-ci/common
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN mkdir -p /opt/doxygen/tmp && cd /opt/doxygen/tmp && \
-    curl -L https://www.doxygen.nl/files/doxygen-1.13.2.linux.bin.tar.gz | tar -xz --strip-components=1 && \
+    curl -L https://www.doxygen.nl/files/doxygen-1.14.0.linux.bin.tar.gz | tar -xz --strip-components=1 && \
     mv bin/* ../ && cd .. && rm -rf tmp && \
-    update-alternatives --install /usr/bin/doxygen doxygen /opt/doxygen/doxygen 1132 --slave /usr/bin/doxyindexer doxyindexer /opt/doxygen/doxyindexer
+    update-alternatives --install /usr/bin/doxygen doxygen /opt/doxygen/doxygen 1140 --slave /usr/bin/doxyindexer doxyindexer /opt/doxygen/doxyindexer
