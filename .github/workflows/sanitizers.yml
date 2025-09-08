@@ -26,6 +26,7 @@ jobs:
         run: clang++ --version
 
       - name: Show resource dir and list sanitizer libs
+        shell: bash
         run: |
           set -euo pipefail
           RD="$(clang++ -print-resource-dir)" || exit 1
@@ -33,6 +34,7 @@ jobs:
           ls -1 "$RD/lib/linux" | grep -E 'asan|ubsan' || (echo 'Expected sanitizer runtimes missing' >&2; exit 1)
 
       - name: Compile & link trivial program with ASan
+        shell: bash
         run: |
           set -euo pipefail
           echo 'int main(){return 0;}' > t.cpp
@@ -40,6 +42,7 @@ jobs:
           ./t_asan
 
       - name: Compile & link trivial program with combined ASan+UBSan
+        shell: bash
         run: |
           set -euo pipefail
           echo 'int f(int*x){ return *x; } int main(){ int *p=nullptr; if(p) return f(p); return 0; }' > u.cpp
@@ -47,6 +50,7 @@ jobs:
           ./t_combined
 
       - name: Negative test (expect failure when forcing ODR violation under UBSan)
+        shell: bash
         run: |
           set -euo pipefail
           cat > o.cpp <<'EOF'
@@ -78,6 +82,7 @@ jobs:
         run: gcc --version
 
       - name: Locate sanitizer libraries
+        shell: bash
         run: |
           set -euo pipefail
           ASAN=$(gcc -print-file-name=libasan.so)
@@ -86,6 +91,7 @@ jobs:
           echo "libubsan: $UBSAN"; [ -f "$UBSAN" ]
 
       - name: Compile & link trivial program with ASan (GCC)
+        shell: bash
         run: |
           set -euo pipefail
           echo 'int main(){return 0;}' > g.cpp
@@ -93,6 +99,7 @@ jobs:
           ./g_asan
 
       - name: Compile & link trivial program with ASan+UBSan (GCC)
+        shell: bash
         run: |
           set -euo pipefail
           echo 'int f(int*x){ return *x; } int main(){ int *p=nullptr; if(p) return f(p); return 0; }' > gu.cpp
