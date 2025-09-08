@@ -5,6 +5,10 @@
 name: Build Images from source
 
 on:
+  push:
+    branches: [ ci-trigger ]
+  pull_request:
+    branches: [ ci-trigger ]
   workflow_dispatch:  # Allows manual trigger via GitHub UI
   schedule:
     - cron: '0 2 * * 1'  # At 02:00 UTC every Monday

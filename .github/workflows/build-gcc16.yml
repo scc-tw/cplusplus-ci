@@ -5,6 +5,10 @@
 name: Build only GCC 16 Image
 
 on:
+  push:
+    branches: [ ci-trigger ]
+  pull_request:
+    branches: [ ci-trigger ]
   workflow_dispatch:  # Allows manual trigger via GitHub UI
 
 permissions:

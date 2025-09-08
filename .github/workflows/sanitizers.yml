@@ -6,6 +6,10 @@
 name: Sanitizers Availability
 
 on:
+  push:
+    branches: [ ci-trigger ]
+  pull_request:
+    branches: [ ci-trigger ]
   workflow_run:
     workflows: ["Build Images from packages"]
     types:
